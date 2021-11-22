@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block styles %}
+        <style>
+            body{
+                height: 100vh;
+                color: blanchedalmond;
+            }
+            .base{
+                background-color: rgb(42, 0, 33);
+            }
+            b{
+                color: chartreuse;
+            }
+            .form-control{
+                background-color: black;
+            }
+        </style>
+        {% endblock %}
+
+
+    <title>Page Replacement Algorithms</title>
+</head>
+<body style="font-family: 'Roboto Mono', monospace;">
+    <script>
+        AOS.init();
+    </script>
+    
+    <div class="container-fluid base">
+
+    
+
+    <h1 style="text-align: center; padding-top: 25px;"><a href="{% url 'index' %}" style="text-decoration: none;">Page Replacement Algorithms</a></h1>
+        <hr>
+    <div style=" font-size: large;">
+
+        <form action="{% url 'result' %}" method="POST">
+            {% csrf_token %}
+            {%comment%}
+            {{ form }}
+            {%endcomment%}
+            <div class="form-row" style="text-align: center;">
+                <div class="form-group col">
+                    <label for="seq">Reference String</label>
+                    <input type="text" name="seq" id="seq" class="form-control" placeholder="ex. 7 0 1 2 0 3 0 4 2 3 0 3 2 1 2 0 1 7 0 1" style="width: 50%; margin: auto;" required>
+                </div>
+                
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col" style="text-align: center;">
+                    <label for="fsize">Frame Size</label>
+                    <input type="number" name="fsize" id="fsize" class="form-control" placeholder="ex. 3" style="width:50%; margin: auto;" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col" style="text-align: center;">
+                    <input type="submit" class="btn btn-primary">
+                </div>
+            </div>
+
+            
+            
+
+        </form> 
+    </div>
+       
+    <div>
+        <hr>
+        {% block result %}
+        {% endblock %}
+    </div> 
+    </div>
+
+
+
+    
+</body>
+
+<footer style="font-family: 'Roboto Mono', monospace;margin-top: 200px;">
+
+</footer>
+</html>

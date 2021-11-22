@@ -1,0 +1,138 @@
+{% extends "algorithms/base.html" %}
+
+{% block styles %}
+
+    <style>
+        body{
+                height: 100vh;
+                color: blanchedalmond;
+            }
+        .base{
+                background-color: rgb(42, 0, 33);
+            }
+        .resultblock{
+            display: block; 
+            margin-top: 1.33em; 
+            margin-bottom: 1.33em; 
+            margin-left: 0; 
+            margin-right: 0; 
+            font-weight: bold;
+            font-size: 1.17em;
+        }        
+        #hits{
+            color: chartreuse;
+        }
+        #misses{
+            color:#f44336
+        }
+        #ratio{
+            color:chocolate;
+        }
+        /* table{
+            
+            
+        } */
+        tr,td{
+            border: 1px solid blanchedalmond;
+        }
+        td{
+            padding: 15px;
+        }
+        hr{
+            border: 5% solid black;
+        }
+        .res-table{
+            margin: auto; 
+            font-size: 1.5em;
+            font-weight: bolder;
+            border-collapse: separate;
+            border-spacing: 0.3em 0;
+            overflow: scroll;
+        }
+        .seq-table{
+            margin-bottom: 20px;
+        }
+        .jumbotron{
+            background-color: rgba(0, 0, 0, 0.096);
+        }
+        .jumbotron h1{
+            text-align: center;
+        }
+        .jumbotron p{
+            font-size: 20px;
+        }
+        .jumbotron p span{
+            color: chartreuse;
+        }
+        .form-control{
+            background-color: black;
+        }
+    </style>
+
+{% endblock %}
+    {% block result %}
+
+
+
+    <script>
+        AOS.init();
+    </script>
+    <div class="container base">
+    <div class="jumbotron" data-aos="fade-right" data-aos-duration="200">
+        <h1 data-aos="fade-right" data-aos-duration="500">Results</h1>
+        <p data-aos="fade-right" data-aos-duration="800"><span>Sequence</span>: {% for s in sequence %} {{s}} {%endfor%}</p>
+        <p data-aos="fade-right" data-aos-duration="1100"><span>Frame Size</span>: {{frameAmount}}</p>
+        <p data-aos="fade-right" data-aos-duration="1400"><span>Number of References</span>: {{length}}</p>
+        <!-- <h3 data-aos="fade-right" data-aos-duration="1700" style="text-align: center;"><code style="color: #0066cc;">Blue is the sequence</code></h3>
+        <h3 data-aos="fade-right" data-aos-duration="2000" style="text-align: center;"><code style="color: #f44336;">Red is the replaced value when page fault occurs</code></h3>
+         -->
+    </div>
+
+    
+    <hr>
+    <div data-aos="fade-right" data-aos-duration="2000">
+    <h1 style="text-align: center;">First In First Out (FIFO)</h1>
+    <br>   
+     <table class="res-table seq-table">
+        <tr>
+        {% for s in sequence %}                
+        <td style="color: #0066cc;">            
+            {{s}}            
+        </td>
+        {% endfor %}
+        </tr>
+    </table>
+     <table class="res-table">
+    {% for list in fifo.finalList %}
+    <tr>
+        {% for s in list %} 
+        
+        {% if 'red' in s %}
+        <td style="background-color:#f44336;">            
+            {{s|slice:"3:"}}            
+        </td>
+        {% else %}
+        <td>            
+            {{s}}            
+        </td>
+        {% endif %}
+        {% endfor %}
+    </tr>
+        {% endfor %}
+    </table>
+    <div class="resultblock" style="text-align: center;" >
+        
+        <p id="hits">Number of Hits: {{fifo.hit}}</p>
+        <p id="misses">Page Faults: {{fifo.miss}}</p>
+        <p id="ratio">Hit Rate: {{fifo.ratio}}%</p>
+    </div>
+</div>
+
+
+
+<hr>
+
+</div>
+    <hr>
+</div>
+    {% endblock %}
