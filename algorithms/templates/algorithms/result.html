@@ -92,7 +92,8 @@
     <hr>
     <div data-aos="fade-right" data-aos-duration="2000">
     <h1 style="text-align: center;">First In First Out (FIFO)</h1>
-    <br>   
+    <br>
+    <div style="overflow-x:auto;"> 
      <table class="res-table seq-table">
         <tr>
         {% for s in sequence %}                
@@ -102,6 +103,8 @@
         {% endfor %}
         </tr>
     </table>
+</div>  
+<div style="overflow-x:auto;"> 
      <table class="res-table">
     {% for list in fifo.finalList %}
     <tr>
@@ -120,6 +123,7 @@
     </tr>
         {% endfor %}
     </table>
+</div> 
     <div class="resultblock" style="text-align: center;" >
         
         <p id="hits">Number of Hits: {{fifo.hit}}</p>
