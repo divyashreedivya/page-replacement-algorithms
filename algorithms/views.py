@@ -58,8 +58,6 @@ def fifo(sequence, frameAmt):
     return fifoctx
 
 # lru algorithm
-
-
 def lru(sequence, frameAmt):
     lrufinalList[]
     lruallList = []
@@ -95,14 +93,10 @@ def lru(sequence, frameAmt):
     return lructx
 
 # opt algorithm
-
-
 def opt(sequence, frameAmt):
     pass
 
 # index view
-
-
 def index(request):
     if request.method == "POST":
         form = InputForm(request.POST)
@@ -115,8 +109,6 @@ def index(request):
                   })
 
 # result view
-
-
 def result(request):
     if(request.method == 'POST'):
         sequenceString = request.POST["seq"]
