@@ -6,6 +6,7 @@
         body{
                 height: 100vh;
                 color: blanchedalmond;
+                font-weight: 100 !important;
             }
         .base{
                 background-color: rgb(42, 0, 33);
@@ -176,6 +177,48 @@
 </div>
 
 <hr>
+<div data-aos="fade-right" data-aos-duration="2000">
+    <h1 style="text-align: center;">Optimal Page Replacement (OPT)</h1>
+    <br>
+    <div style="overflow-x:auto;"> 
+     <table class="res-table seq-table">
+        <tr>
+        {% for s in sequence %}                
+        <td style="color: #0066cc;">            
+            {{s}}            
+        </td>
+        {% endfor %}
+        </tr>
+    </table>
+</div>  
+<div style="overflow-x:auto;"> 
+     <table class="res-table">
+    {% for list in opt.finalList %}
+    <tr>
+        {% for s in list %} 
+        
+        {% if 'red' in s %}
+        <td style="background-color:#f44336;">            
+            {{s|slice:"3:"}}            
+        </td>
+        {% else %}
+        <td>            
+            {{s}}            
+        </td>
+        {% endif %}
+        {% endfor %}
+    </tr>
+        {% endfor %}
+    </table>
+</div> 
+    <div class="resultblock" style="text-align: center;" >
+        
+        <p id="hits">Number of Hits: {{opt.hit}}</p>
+        <p id="misses">Page Faults: {{opt.miss}}</p>
+        <p id="ratio">Hit Rate: {{opt.ratio}}%</p>
+    </div>
+</div>
+
 
 </div>
     <hr>

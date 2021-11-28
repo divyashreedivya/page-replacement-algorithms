@@ -88,7 +88,55 @@ def lru(sequence, frameAmt):
 
 # opt algorithm
 def opt(sequence, frameAmt):
-    pass
+    frame=[]
+    hit=0
+    miss=0
+    occurence = [None for i in range(frameAmt)]
+    temp=[]
+    optallList=[]
+    optfinalList=[]
+
+    for i in range(len(sequence)):
+
+        if sequence[i] in frame: #page hit
+            hit+=1
+            temp=frame[:]
+
+        else: #page miss
+            if len(frame) < frameAmt:
+                frame.append(sequence[i])
+            else: #find the one that is furthest away
+                for j in range(frameAmt):
+                    if frame[j] not in sequence[i+1:]:
+                        frame[j] = sequence[i]
+                        break
+                    else:
+                        occurence[j] = sequence[i+1:].index(frame[j])
+                else:
+                    frame[occurence.index(max(occurence))] = sequence[i]
+            miss += 1
+
+            temp = frame[:]
+            temp[temp.index(sequence[i])] = 'red' + str(sequence[i])
+
+        # temp = list(reversed(temp))
+        n=len(sequence)
+        temp = [str(n) for n in temp]
+
+        for jj in range(len(temp)):
+            if temp[jj] == '-1':
+                temp[jj] = '-'
+
+        optallList.append(temp)
+
+    #print(optallList)
+    optfinalList = transpose(optallList, frameAmt)
+    #print(optfinalList)
+
+    hit_ratio=hit*100/len(sequence)
+    optctx = {'finalList': optfinalList, 'miss': miss, 'hit': hit, 'ratio': hit_ratio}  # fifo object
+    #print("\n miss: %d \n hit: %d \n hit ratio:%0.2f%%"%(miss,hit,hit_ratio))
+    return optctx
 
 # index view
 def index(request):
@@ -112,6 +160,7 @@ def result(request):
         frameAmount = int(frameAmtString)
         fifoctx = fifo(sequenceList, frameAmount)
         lructx = lru(sequenceList,frameAmount)
+        optctx = opt(sequenceList,frameAmount)
 
         return render(request,"algorithms/result.html",{
             'form':InputForm(), #form
@@ -119,5 +168,6 @@ def result(request):
             'frameAmount':frameAmount,  #frame size
             'length':len(sequenceString.split()), #number of references
             'fifo':fifoctx, #fifo
-            'lru':lructx
+            'lru':lructx,
+            'opt':optctx
         })
