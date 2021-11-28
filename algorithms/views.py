@@ -2,71 +2,65 @@ from django.shortcuts import render
 from django.views import View
 from .forms import InputForm
 
-#function for transpose
+# function for transpose
 def transpose(l1, num):
     for i in l1:
         while(len(i) < num):
-            i.append("-")      
-
-
+            i.append("-")
 
     l2 = list(zip(*l1))
     return l2
 
-#fifo algorithm
-def fifo(sequence,frameAmt):
-    fifofinalList=[]
+# fifo algorithm
+def fifo(sequence, frameAmt):
+    fifofinalList = []
     fifoallList = []
     sequenceList = sequence
     frames = []
-    hit = 0 #stores number of hits
-    miss = 0 #stores number of misses
+    hit = 0  # stores number of hits
+    miss = 0  # stores number of misses
     replaceIndex = 0
     temp = []
-    #fifo algorithm
-    for s in sequenceList:     
+    # fifo algorithm
+    for s in sequenceList:
         if s in frames:
             hit += 1
-            if 'red' in temp[replaceIndex - 1]: #removing old "red" value
+            if 'red' in temp[replaceIndex - 1]:  # removing old "red" value
                 temp[replaceIndex - 1] = temp[replaceIndex - 1][3:]
 
         else:
             miss += 1
             if len(frames) == frameAmt:
                 frames[replaceIndex] = s
-                
             else:
                 frames.append(s)
-            temp = frames[:] #copying the list by value
-            temp[replaceIndex] = 'red'+temp[replaceIndex] #adding "red" to the new value that is replaced
-            
+            temp = frames[:]  # copying the list by value
+            # adding "red" to the new value that is replaced
+            temp[replaceIndex] = 'red'+temp[replaceIndex]
+
             replaceIndex = (replaceIndex + 1) % frameAmt
-            
-        
+
         fifoallList.append(temp[:])
     # print('------------')
     # print(fifoallList)
-    fifofinalList = transpose(fifoallList, frameAmt) #transpose 
+    fifofinalList = transpose(fifoallList, frameAmt)  # transpose
 
     ratio = 100.0*hit/(len(sequenceList))
-    
-    fifoctx = {'finalList':fifofinalList,'miss':miss,'hit':hit,'ratio':ratio} #fifo object
+
+    fifoctx = {'finalList': fifofinalList, 'miss': miss,
+               'hit': hit, 'ratio': ratio}  # fifo object
     # print(fifoctx)
     return fifoctx
-
-
 
 #lru algorithm
 def lru(sequence, frameAmt):
     lrufinalList=[]
+    lruallList = []
     sequenceList = sequence
     frames = []
-    lruallList = []
     hit = 0
     miss = 0
     temp = []
-
-    #lru algorithm
     for s in sequenceList:
         if s not in frames:
             miss += 1
@@ -86,31 +80,31 @@ def lru(sequence, frameAmt):
             temp = frames[:]
 
         lruallList.append(temp)
-    lrufinalList = transpose(lruallList, frameAmt)#transpose
-    
+    lrufinalList = transpose(lruallList, frameAmt)  # transpose
+
     lruratio = 100.0*hit/(len(sequenceList))
     lructx = {'finalList': lrufinalList, 'miss': miss,'hit': hit, 'ratio': lruratio}  # lru object
     return lructx
 
-#opt algorithm
-def opt(sequence,frameAmt):
+# opt algorithm
+def opt(sequence, frameAmt):
     pass
 
-#index view
+# index view
 def index(request):
     if request.method == "POST":
         form = InputForm(request.POST)
-        
+
         sequenceString = form.cleaned_data["seq"]
         frameAmtString = form.cleaned_data["frames"]
     return render(request, "algorithms/index.html",
-    {
-        "form": InputForm()
-    })
+                  {
+                      "form": InputForm()
+                  })
 
-#result view
+# result view
 def result(request):
-    if(request.method=='POST'):
+    if(request.method == 'POST'):
         sequenceString = request.POST["seq"]
         frameAmtString = request.POST["fsize"]
 
