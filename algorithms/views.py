@@ -3,8 +3,6 @@ from django.views import View
 from .forms import InputForm
 
 # function for transpose
-
-
 def transpose(l1, num):
     for i in l1:
         while(len(i) < num):
@@ -14,8 +12,6 @@ def transpose(l1, num):
     return l2
 
 # fifo algorithm
-
-
 def fifo(sequence, frameAmt):
     fifofinalList = []
     fifoallList = []
@@ -88,8 +84,7 @@ def lru(sequence, frameAmt):
     lrufinalList = transpose(lruallList, frameAmt)  # transpose
 
     lruratio = 100.0*hit/(len(sequenceList))
-    lructx = {'finalList': lrufinalList, 'miss': miss,
-              'hit': hit, 'ratio': ratio}  # fifo object
+    lructx = {'finalList': lrufinalList, 'miss': miss,'hit': hit, 'ratio': ratio}  # fifo object
     return lructx
 
 # opt algorithm
