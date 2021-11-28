@@ -90,7 +90,7 @@ def lru(sequence, frameAmt):
     lruratio = 100.0*hit/(len(sequenceList))
     lructx = {'finalList': lrufinalList, 'miss': miss,
               'hit': hit, 'ratio': ratio}  # fifo object
-    pass
+    return lructx
 
 # opt algorithm
 def opt(sequence, frameAmt):
