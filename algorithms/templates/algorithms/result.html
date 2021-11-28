@@ -132,7 +132,48 @@
     </div>
 </div>
 
-
+<hr>
+<div data-aos="fade-right" data-aos-duration="2000">
+    <h1 style="text-align: center;">Least Recently Used (LRU)</h1>
+    <br>
+    <div style="overflow-x:auto;"> 
+     <table class="res-table seq-table">
+        <tr>
+        {% for s in sequence %}                
+        <td style="color: #0066cc;">            
+            {{s}}            
+        </td>
+        {% endfor %}
+        </tr>
+    </table>
+</div>  
+<div style="overflow-x:auto;"> 
+     <table class="res-table">
+    {% for list in lru.finalList %}
+    <tr>
+        {% for s in list %} 
+        
+        {% if 'red' in s %}
+        <td style="background-color:#f44336;">            
+            {{s|slice:"3:"}}            
+        </td>
+        {% else %}
+        <td>            
+            {{s}}            
+        </td>
+        {% endif %}
+        {% endfor %}
+    </tr>
+        {% endfor %}
+    </table>
+</div> 
+    <div class="resultblock" style="text-align: center;" >
+        
+        <p id="hits">Number of Hits: {{lru.hit}}</p>
+        <p id="misses">Page Faults: {{lru.miss}}</p>
+        <p id="ratio">Hit Rate: {{lru.ratio}}%</p>
+    </div>
+</div>
 
 <hr>
 

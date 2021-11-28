@@ -54,11 +54,11 @@ def fifo(sequence,frameAmt):
     # print(fifoctx)
     return fifoctx
 
-#lru alogorithm
 
 
+#lru algorithm
 def lru(sequence, frameAmt):
-    lrufinalList[]
+    lrufinalList=[]
     sequenceList = sequence
     frames = []
     lruallList = []
@@ -89,8 +89,8 @@ def lru(sequence, frameAmt):
     lrufinalList = transpose(lruallList, frameAmt)#transpose
     
     lruratio = 100.0*hit/(len(sequenceList))
-    lructx = {'finalList': lrufinalList, 'miss': miss,'hit': hit, 'ratio': ratio}  # fifo object
-    pass
+    lructx = {'finalList': lrufinalList, 'miss': miss,'hit': hit, 'ratio': lruratio}  # lru object
+    return lructx
 
 #opt algorithm
 def opt(sequence,frameAmt):
@@ -117,11 +117,13 @@ def result(request):
         sequenceList = sequenceString.split()
         frameAmount = int(frameAmtString)
         fifoctx = fifo(sequenceList, frameAmount)
+        lructx = lru(sequenceList,frameAmount)
 
         return render(request,"algorithms/result.html",{
             'form':InputForm(), #form
             'sequence':sequenceString.split(), #input sequence 
             'frameAmount':frameAmount,  #frame size
             'length':len(sequenceString.split()), #number of references
-            'fifo':fifoctx #fifo
+            'fifo':fifoctx, #fifo
+            'lru':lructx
         })
