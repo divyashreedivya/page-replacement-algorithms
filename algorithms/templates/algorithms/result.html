@@ -4,13 +4,15 @@
 
     <style>
         body{
-                height: 100vh;
-                color: blanchedalmond;
+                min-height: 100vh;
+                color: #c5c6c7;
                 font-weight: 100 !important;
+                background: linear-gradient(#0a011b,#2b0d21,#0a011b);
+                background-repeat: no-repeat;
+                /* background-size:cover; */
+                background: linear-gradient(45deg,#0b0c10,#1f2833,#0b0c10);
             }
-        .base{
-                background-color: rgb(42, 0, 33);
-            }
+        
         .resultblock{
             display: block; 
             margin-top: 1.33em; 
@@ -19,26 +21,32 @@
             margin-right: 0; 
             font-weight: bold;
             font-size: 1.17em;
+            padding: 2%;
+            /* background-color: rgba(0, 0, 0, 0.096);*/
+            border-radius: 40px; 
         }        
         #hits{
-            color: chartreuse;
+            color: rgb(255, 255, 255);
         }
         #misses{
-            color:#f44336
+            color:rgb(255, 255, 255);
         }
         #ratio{
-            color:chocolate;
+            color:rgb(255, 255, 255);
         }
-        /* table{
-            
-            
-        } */
+        #hits span,#misses span,#ratio span{
+            color: #43bee5;
+        }
         tr,td{
-            border: 1px solid blanchedalmond;
+            border: 1px solid rgb(240, 250, 251);
         }
         td{
             padding: 15px;
+            
         }
+        label{
+                color: #45a29e;
+            }
         hr{
             border: 5% solid black;
         }
@@ -63,10 +71,25 @@
             font-size: 20px;
         }
         .jumbotron p span{
-            color: chartreuse;
+            color: #45a29e;;;
         }
         .form-control{
             background-color: black;
+        }
+        .clr{
+            color: #66fcf1;
+        }
+        .red-clr{
+            /* background-color:#f44336; */
+            background-color:#bd291f;
+        }
+        .algo{
+            color:#66fcf1;
+            text-shadow: 5px 5px 10px #1f2833;
+        }
+        .btn-primary{
+            background-color: #45a29e !important;
+            border-color: #43bee5 !important;
         }
     </style>
 
@@ -80,25 +103,22 @@
     </script>
     <div class="container base">
     <div class="jumbotron" data-aos="fade-right" data-aos-duration="200">
-        <h1 data-aos="fade-right" data-aos-duration="500">Results</h1>
+        <h1 style="color:#43bee5" data-aos="fade-right" data-aos-duration="500">Results</h1>
         <p data-aos="fade-right" data-aos-duration="800"><span>Sequence</span>: {% for s in sequence %} {{s}} {%endfor%}</p>
         <p data-aos="fade-right" data-aos-duration="1100"><span>Frame Size</span>: {{frameAmount}}</p>
         <p data-aos="fade-right" data-aos-duration="1400"><span>Number of References</span>: {{length}}</p>
-        <!-- <h3 data-aos="fade-right" data-aos-duration="1700" style="text-align: center;"><code style="color: #0066cc;">Blue is the sequence</code></h3>
-        <h3 data-aos="fade-right" data-aos-duration="2000" style="text-align: center;"><code style="color: #f44336;">Red is the replaced value when page fault occurs</code></h3>
-         -->
     </div>
 
     
     <hr>
     <div data-aos="fade-right" data-aos-duration="2000">
-    <h1 style="text-align: center;">First In First Out (FIFO)</h1>
+    <h1 class="algo" style="text-align: center;">First In First Out (FIFO)</h1>
     <br>
     <div style="overflow-x:auto;"> 
      <table class="res-table seq-table">
         <tr>
         {% for s in sequence %}                
-        <td style="color: #0066cc;">            
+        <td class="clr">            
             {{s}}            
         </td>
         {% endfor %}
@@ -112,7 +132,7 @@
         {% for s in list %} 
         
         {% if 'red' in s %}
-        <td style="background-color:#f44336;">            
+        <td class="red-clr">            
             {{s|slice:"3:"}}            
         </td>
         {% else %}
@@ -127,21 +147,21 @@
 </div> 
     <div class="resultblock" style="text-align: center;" >
         
-        <p id="hits">Number of Hits: {{fifo.hit}}</p>
-        <p id="misses">Page Faults: {{fifo.miss}}</p>
-        <p id="ratio">Hit Rate: {{fifo.ratio}}%</p>
+        <p id="hits"><span>Number of Hits:</span> {{fifo.hit}}</p>
+        <p id="misses"><span>Page Faults:</span> {{fifo.miss}}</p>
+        <p id="ratio"><span>Hit Rate:</span> {{fifo.ratio}}%</p>
     </div>
 </div>
 
 <hr>
 <div data-aos="fade-right" data-aos-duration="2000">
-    <h1 style="text-align: center;">Least Recently Used (LRU)</h1>
+    <h1 class="algo" style="text-align: center;">Least Recently Used (LRU)</h1>
     <br>
     <div style="overflow-x:auto;"> 
      <table class="res-table seq-table">
         <tr>
         {% for s in sequence %}                
-        <td style="color: #0066cc;">            
+        <td class="clr">            
             {{s}}            
         </td>
         {% endfor %}
@@ -155,7 +175,7 @@
         {% for s in list %} 
         
         {% if 'red' in s %}
-        <td style="background-color:#f44336;">            
+        <td class="red-clr">            
             {{s|slice:"3:"}}            
         </td>
         {% else %}
@@ -170,21 +190,21 @@
 </div> 
     <div class="resultblock" style="text-align: center;" >
         
-        <p id="hits">Number of Hits: {{lru.hit}}</p>
-        <p id="misses">Page Faults: {{lru.miss}}</p>
-        <p id="ratio">Hit Rate: {{lru.ratio}}%</p>
+        <p id="hits"><span>Number of Hits:</span> {{lru.hit}}</p>
+        <p id="misses"><span>Page Faults:</span> {{lru.miss}}</p>
+        <p id="ratio"><span>Hit Rate:</span> {{lru.ratio}}%</p>
     </div>
 </div>
 
 <hr>
 <div data-aos="fade-right" data-aos-duration="2000">
-    <h1 style="text-align: center;">Optimal Page Replacement (OPT)</h1>
+    <h1 class="algo" style="text-align: center;">Optimal Page Replacement (OPT)</h1>
     <br>
     <div style="overflow-x:auto;"> 
      <table class="res-table seq-table">
         <tr>
         {% for s in sequence %}                
-        <td style="color: #0066cc;">            
+        <td class="clr">            
             {{s}}            
         </td>
         {% endfor %}
@@ -198,7 +218,7 @@
         {% for s in list %} 
         
         {% if 'red' in s %}
-        <td style="background-color:#f44336;">            
+        <td class="red-clr">            
             {{s|slice:"3:"}}            
         </td>
         {% else %}
@@ -213,9 +233,9 @@
 </div> 
     <div class="resultblock" style="text-align: center;" >
         
-        <p id="hits">Number of Hits: {{opt.hit}}</p>
-        <p id="misses">Page Faults: {{opt.miss}}</p>
-        <p id="ratio">Hit Rate: {{opt.ratio}}%</p>
+        <p id="hits"><span>Number of Hits:</span> {{opt.hit}}</p>
+        <p id="misses"><span>Page Faults:</span> {{opt.miss}}</p>
+        <p id="ratio"><span>Hit Rate:</span> {{opt.ratio}}%</p>
     </div>
 </div>
 

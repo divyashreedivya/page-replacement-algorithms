@@ -20,21 +20,36 @@
         <style>
             body{
                 height: 100vh;
-                color: blanchedalmond;
+                color: #c5c6c7;
                 font-weight: 100 !important;
             }
             .intro-data{
                 font-size: 1.2rem;
             }
             .base{
-                background-color: rgb(42, 0, 33);
+                /* background-color: #10002b; */
+                background-color: #114847;
+                /* background: linear-gradient(#041212 ,#114847,#16bcbf); */
+                background: linear-gradient(#041212 ,#074344,#1e6363);
+                /* background: linear-gradient(#0a011b,#2b0d21,#0a011b); */
+                /* background: linear-gradient(#0a011b,#2b0d21,#0a011b); */
+                background: linear-gradient(#20353c,#2eaf7d,#449342);
+                background: linear-gradient(#01153f,#24855f,#132d46);
+                background: linear-gradient(45deg,#0b0c10,#1f2833,#0b0c10 );
             }
             b{
-                color: chartreuse;
+                color: #66fcf1;
             }
             .form-control,.form-control:focus,.form-control:focus:active{
                 background-color: black;
-                color: blanchedalmond;
+                color: rgb(240, 250, 251);
+            }
+            .btn-primary{
+                background-color: #45a29e !important;
+                border-color: #43bee5 !important;
+            }
+            label{
+                color: #45a29e;
             }
         </style>
         {% endblock %}
@@ -51,7 +66,7 @@
 
     
 
-    <h1 style="text-align: center; padding-top: 25px;"><a href="{% url 'index' %}" style="text-decoration: none;">Page Replacement Algorithms</a></h1>
+    <h1 style="text-align: center; padding-top: 25px;"><a href="{% url 'index' %}" style="text-decoration: none; color:#66fcf1">Page Replacement Algorithms</a></h1>
         <hr>
     <div style=" font-size: large;">
 
